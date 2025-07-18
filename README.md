@@ -1,9 +1,13 @@
 <h4>Aim of the pipeline</h4>
 
 The aim of this project is to create an Nextflow pipeline for annotation of Isoseeq gene annotation of plant genomes. It takes raw raw fastq reads sequenced in PacBio platform, starting from raw isoseq subreads, the pipeline:
+
     - Generates the Circular Consensus Sequences (CSS) from subreads.bam
+    
     - Clean and polish CCS to create Full Length Non Chimeric (FLNC) reads
+    
     - Maps FLNCs on the reference genome
+    
     - Defines and clean gene models
 
 <h4>Pipeline summary</h4>
