@@ -16,8 +16,8 @@ The aim of this project is to create an Nextflow pipeline for annotation of Isos
   6) Map consensuses on the reference genome (minimap/STAR)<br/>
   7) Clean gene models (Isoseq3/tama collapse)<br/>
   8) Merge annotations by sample (tama merge)<br/>
-  9) Post Analysis(
-    ISOPHASE: ISOFORM PHASING USING ISO-SEQ DATA
-    COGENT: RECONSTRUCT CODING REGION
-    CUPCAKE & TAMA: LIGHT-WEIGHT ANALYSIS SCRIPTS
-    SQANTI & TAPPAS: QUALITY CONTROL, EVALUATION AND VISUALIZATION
+  9) Post Analysis:<br/>
+    ISOPHASE: ISOFORM PHASING USING ISO-SEQ DATA<br/>
+    COGENT: RECONSTRUCT CODING REGION<br/>
+    CUPCAKE & TAMA: LIGHT-WEIGHT ANALYSIS SCRIPTS<br/>
+    SQANTI & TAPPAS: QUALITY CONTROL, EVALUATION AND VISUALIZATION<br/>
