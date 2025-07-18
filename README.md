@@ -9,11 +9,15 @@ The aim of this project is to create an Nextflow pipeline for annotation of Isos
 <h4>Pipeline summary</h4>
 
   1) Generate CCS consensuses from raw isoseq subreads (ccs)<br/>
-  2) Remove primer sequences from consensuses (lima)<br/>
-  3) Detect and remove chimeric reads (Isoseq refine)<br/>
-  4) Convert bam file into fasta file (Bamtools convert)<br/>
-  5) Select reads with a polyA tail and trim it (GSTAMA_POLYACLEANUP)<br/>
-  6) uLTRA path: index GTF file for mapping (uLTRA)<br/>
-  7) ap consensuses on the reference genome (minimap or STAR)<br/>
-  8) Clean gene models (tama collapse)<br/>
-  9) Merge annotations by sample (tama merge)<br/>
+  2) Remove primers and Demultiplexing (lima)<br/>
+  3) Trim poly(A) Tails and concatemer removal (Isoseq3 refine)<br/>
+  4) Hig quality Isoforms (Isoseq3 cluster)<br>/
+  5) Convert bam file into fastq file (Bamtools convert)<br/>
+  6) Map consensuses on the reference genome (minimap/STAR)<br/>
+  7) Clean gene models (Isoseq3/tama collapse)<br/>
+  8) Merge annotations by sample (tama merge)<br/>
+  9) Post Analysis(
+    ISOPHASE: ISOFORM PHASING USING ISO-SEQ DATA
+    COGENT: RECONSTRUCT CODING REGION
+    CUPCAKE & TAMA: LIGHT-WEIGHT ANALYSIS SCRIPTS
+    SQANTI & TAPPAS: QUALITY CONTROL, EVALUATION AND VISUALIZATION
