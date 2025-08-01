@@ -22,20 +22,13 @@ The aim of this project is to create an Nextflow pipeline for annotation of Isos
     CUPCAKE & TAMA: LIGHT-WEIGHT ANALYSIS SCRIPTS<br/>
     SQANTI & TAPPAS: QUALITY CONTROL, EVALUATION AND VISUALIZATION<br/>
 
-<h4>Tools</h4>
-    <h2>TAMA - Transcriptome Annotation by Modular Algorithms</h2>
+Resources and References
+    https://github.com/PacificBiosciences/IsoSeq_SA3nUP/wiki
+    https://github.com/PacificBiosciences/IsoSeq_SA3nUP/wiki/Tutorial:-Installing-and-Running-Iso-Seq-3-using-Conda
+    https://github.com/PacificBiosciences/IsoSeq3/blob/master/README_v3.1.md
+    https://github.com/Magdoll/cDNA_Cupcake
+    https://github.com/Magdoll/SQANTI2
+    https://pacbiofileformats.readthedocs.io/en/3.0/BAM.html
+    https://github.com/PacificBiosciences/PacBioFileFormats/wiki/BAM-recipes
+    https://pacbiofileformats.readthedocs.io/en/5.1/
 
-    collapse aligned reads to find unique transcripts
-    merge multiple transcriptomes together
-
-    cDNA_Cupcake - collapse long reads into unique transcripts
-
-    SQANTI3 - identify isoforms from aligned long reads
-
-    isoAnnot - database of isoform functions - not available yet
-
-    tappAS -Your application to understand the functional implications of alternative splicing
-
-    Cogent - reconstruct coding genome from long reads without a reference genome
-
-    IsoAnnotLite - annotate novel isoforms from PacBio reads
