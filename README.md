@@ -1,4 +1,4 @@
-<h3>Aim of the pipeline</h3>
+<h2>Aim of the pipeline</h2>
 
 The aim of this project is to create an Nextflow pipeline for annotation of Isoseeq gene annotation of plant genomes. It takes raw raw fastq reads sequenced in PacBio platform, starting from raw isoseq subreads, the pipeline:<br>
     - Generates the Circular Consensus Sequences (CSS) from subreads.bam<br/>
@@ -6,7 +6,7 @@ The aim of this project is to create an Nextflow pipeline for annotation of Isos
     - Maps FLNCs on the reference genome<br/>
     - Defines and clean gene models<br/>
 
-<h4>Pipeline summary</h4>
+<h3>Pipeline summary</h3>
 
   1) Generate CCS consensuses from raw isoseq subreads (ccs)<br/>
   2) Remove primers and Demultiplexing (lima)<br/>
@@ -22,7 +22,7 @@ The aim of this project is to create an Nextflow pipeline for annotation of Isos
     CUPCAKE & TAMA: LIGHT-WEIGHT ANALYSIS SCRIPTS<br/>
     SQANTI & TAPPAS: QUALITY CONTROL, EVALUATION AND VISUALIZATION<br/>
 
-<h4>Resources</h4>
+<h3>Resources</h3>
     https://github.com/PacificBiosciences/IsoSeq<br/>
     https://github.com/Magdoll/cDNA_Cupcake<br/>
     https://github.com/Magdoll/SQANTI3<br/>
