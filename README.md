@@ -23,7 +23,6 @@ The aim of this project is to create an Nextflow pipeline for annotation of Isos
     SQANTI & TAPPAS: QUALITY CONTROL, EVALUATION AND VISUALIZATION<br/>
 
 <h4>Resources</h4>
-
     https://github.com/PacificBiosciences/IsoSeq<br/>
     https://github.com/Magdoll/cDNA_Cupcake<br/>
     https://github.com/Magdoll/SQANTI3<br/>
