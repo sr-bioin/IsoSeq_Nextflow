@@ -21,3 +21,22 @@ The aim of this project is to create an Nextflow pipeline for annotation of Isos
     COGENT: RECONSTRUCT CODING REGION<br/>
     CUPCAKE & TAMA: LIGHT-WEIGHT ANALYSIS SCRIPTS<br/>
     SQANTI & TAPPAS: QUALITY CONTROL, EVALUATION AND VISUALIZATION<br/>
+
+<h4>Tools</h4>
+
+    TAMA - Transcriptome Annotation by Modular Algorithms
+
+    collapse aligned reads to find unique transcripts
+    merge multiple transcriptomes together
+
+    cDNA_Cupcake - collapse long reads into unique transcripts
+
+    SQANTI2 - identify isoforms from aligned long reads
+
+    isoAnnot - database of isoform functions - not available yet
+
+    tappAS -Your application to understand the functional implications of alternative splicing
+
+    Cogent - reconstruct coding genome from long reads without a reference genome
+
+    IsoAnnotLite - annotate novel isoforms from PacBio reads
