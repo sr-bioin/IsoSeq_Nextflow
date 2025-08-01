@@ -22,13 +22,10 @@ The aim of this project is to create an Nextflow pipeline for annotation of Isos
     CUPCAKE & TAMA: LIGHT-WEIGHT ANALYSIS SCRIPTS<br/>
     SQANTI & TAPPAS: QUALITY CONTROL, EVALUATION AND VISUALIZATION<br/>
 
-Resources and References
-    https://github.com/PacificBiosciences/IsoSeq_SA3nUP/wiki
-    https://github.com/PacificBiosciences/IsoSeq_SA3nUP/wiki/Tutorial:-Installing-and-Running-Iso-Seq-3-using-Conda
-    https://github.com/PacificBiosciences/IsoSeq3/blob/master/README_v3.1.md
-    https://github.com/Magdoll/cDNA_Cupcake
-    https://github.com/Magdoll/SQANTI2
-    https://pacbiofileformats.readthedocs.io/en/3.0/BAM.html
-    https://github.com/PacificBiosciences/PacBioFileFormats/wiki/BAM-recipes
-    https://pacbiofileformats.readthedocs.io/en/5.1/
+Resources
+    https://github.com/PacificBiosciences/IsoSeq<br/>
+    https://github.com/Magdoll/cDNA_Cupcake<br/>
+    https://github.com/Magdoll/SQANTI3<br/>
+    https://github.com/Magdoll/Cogent
+    
 
