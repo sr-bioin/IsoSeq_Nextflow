@@ -23,7 +23,6 @@ The aim of this project is to create an Nextflow pipeline for annotation of Isos
     SQANTI & TAPPAS: QUALITY CONTROL, EVALUATION AND VISUALIZATION<br/>
 
 <h4>Tools</h4>
-
     <h2>TAMA - Transcriptome Annotation by Modular Algorithms</h2>
 
     collapse aligned reads to find unique transcripts
