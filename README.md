@@ -11,7 +11,7 @@ The aim of this project is to create an Nextflow pipeline for annotation of Isos
   1) Generate CCS consensuses from raw isoseq subreads (ccs)<br/>
   2) Remove primers and Demultiplexing (lima)<br/>
   3) Trim poly(A) Tails and concatemer removal (Isoseq3 refine)<br/>
-  4) Hig quality Isoforms (Isoseq3 cluster)<br>/
+  4) Hig quality Isoforms (Isoseq3 cluster)<br/>
   5) Convert bam file into fastq file (Bamtools convert)<br/>
   6) Map consensuses on the reference genome (minimap/STAR)<br/>
   7) Clean gene models (Isoseq3/tama collapse)<br/>
