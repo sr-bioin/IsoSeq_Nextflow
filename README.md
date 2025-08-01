@@ -24,7 +24,7 @@ The aim of this project is to create an Nextflow pipeline for annotation of Isos
 
 <h4>Tools</h4>
 
-    TAMA - Transcriptome Annotation by Modular Algorithms
+    <h2>TAMA - Transcriptome Annotation by Modular Algorithms</h2>
 
     collapse aligned reads to find unique transcripts
     merge multiple transcriptomes together
