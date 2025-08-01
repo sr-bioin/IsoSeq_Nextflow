@@ -31,7 +31,7 @@ The aim of this project is to create an Nextflow pipeline for annotation of Isos
 
     cDNA_Cupcake - collapse long reads into unique transcripts
 
-    SQANTI2 - identify isoforms from aligned long reads
+    SQANTI3 - identify isoforms from aligned long reads
 
     isoAnnot - database of isoform functions - not available yet
 
