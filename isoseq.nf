@@ -6,6 +6,13 @@ params.input_bam = "/home/Iso-Seq/IsoSeq_Raw_data/m64069_004639.subreads.bam"
 params.primers   = "/home/Iso-Seq/IsoSeq_Raw_data/Isoseq_Barcode_primers.fasta"
 params.outdir    = "results"
 
+// Define valid barcode IDs
+def valid_ids = [
+    "bc1001_5p--bc1001_3p",
+    "bc1002_5p--bc1002_3p",
+    "bc1003_5p--bc1003_3p"  // Add more as needed
+]
+
 // Input channel
 Channel
     .fromPath(params.input_bam)
@@ -46,7 +53,7 @@ process lima {
     """
 }
 
-// Step 3: Refine each demultiplexed BAM separately
+// Step 3: Refine
 process refine {
     tag "$barcode_bam"
     publishDir "${params.outdir}/refine", mode: 'copy'
@@ -64,33 +71,29 @@ process refine {
     """
 }
 
-// Step 4: Cluster
+// Step 4: Cluster with --use-qvs and check for HQ output
 process cluster {
     tag "$flnc_bam"
     publishDir "${params.outdir}/cluster", mode: 'copy'
 
-    cpus 20
+    cpus 30
     memory '32 GB'
-    
+
     input:
     tuple val(sample_id), path(flnc_bam)
 
     output:
-    tuple val(sample_id), path("${flnc_bam.baseName}_clustered.hq.bam"), path("${flnc_bam.baseName}_clustered.hq.bam.pbi")
+    tuple val(sample_id), path("*.hq.bam")
 
     script:
     """
-    # First check if input file exists and has content
-    if [ ! -s "$flnc_bam" ]; then
-        echo "Error: Input file $flnc_bam is empty or missing"
-        exit 1
-    fi
-    
-    isoseq3 cluster "$flnc_bam" "${flnc_bam.baseName}_clustered.bam"
-    
-    # Check if output was generated
-    if [ ! -s "${flnc_bam.baseName}_clustered.hq.bam" ]; then
-        echo "Error: No HQ output generated for $flnc_bam"
+    basename=\$(basename "$flnc_bam" .bam)
+    output_prefix="\${basename}_clustered"
+    isoseq3 cluster "$flnc_bam" "\${output_prefix}.bam" --use-qvs
+
+    # Sanity check
+    if [[ ! -f "\${output_prefix}.hq.bam" ]]; then
+        echo "ERROR: HQ BAM not generated for $flnc_bam" >&2
         exit 1
     fi
     """
@@ -98,19 +101,28 @@ process cluster {
 
 // Step 5: Summarize
 process summarize {
-    tag "$polished_bam"
+    tag "$hq_bam"
     publishDir "${params.outdir}/summary", mode: 'copy'
 
     input:
-    tuple val(sample_id), path(hq_bam), path(pbi)
+    tuple val(sample_id), path(hq_bam)
 
     output:
-    path("*.summary.txt")
+    path("*.summary.csv")
 
     script:
     """
-    output_name=\$(basename "$hq_bam" .bam).summary.txt
-    isoseq3 summarize "$hq_bam" "\$output_name"
+    set -euo pipefail
+
+    in_file=\$(realpath "$hq_bam")
+    base_name=\$(basename "\$in_file" .bam)
+    out_file="\${base_name}.summary.csv"
+
+    echo "Running isoseq3 summarize on:"
+    echo "  Input : \$in_file"
+    echo "  Output: \$out_file"
+
+    isoseq3 summarize "\$in_file" "\$out_file"
     """
 }
 
@@ -119,19 +131,21 @@ workflow {
     ccs_out = ccs(subreads_ch)
     lima_out = lima(ccs_out)
 
+    // Flatten and filter based on barcode IDs
     refined = lima_out
         .flatMap { sample_id, bam_files ->
             bam_files.collect { bam_file -> tuple(sample_id, bam_file) }
         }
         .filter { sample_id, bam_file ->
             def name = bam_file.getName()
-            name.endsWith(".bam") && (
-                name.contains("bc1001_5p--bc1001_3p") ||
-                name.contains("bc1002_5p--bc1002_3p")
-            )
+            name.endsWith(".bam") && valid_ids.any { id -> name.contains(id) }
         }
         | refine
 
     clustered = cluster(refined)
-    summarize(clustered)
+
+    hq_bams = clustered.filter { sample_id, file -> file.name.endsWith(".hq.bam") }
+
+    summarize(hq_bams)
 }
+
