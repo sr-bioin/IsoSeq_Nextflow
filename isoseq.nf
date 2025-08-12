@@ -2,8 +2,8 @@
 
 nextflow.enable.dsl=2
 
-params.input_bam = "/home/Iso-Seq/IsoSeq_Raw_data/m64069_004639.subreads.bam"
-params.primers   = "/home/Iso-Seq/IsoSeq_Raw_data/Isoseq_Barcode_primers.fasta"
+params.input_bam = "/Iso-Seq/IsoSeq_Raw_data/m64069_004639.subreads.bam"
+params.primers   = "/Iso-Seq/IsoSeq_Raw_data/Isoseq_Barcode_primers.fasta"
 params.outdir    = "results"
 
 // Define valid barcode IDs
