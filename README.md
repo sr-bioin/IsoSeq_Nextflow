@@ -19,7 +19,7 @@ The aim of this project is to create an Nextflow pipeline for annotation of Isos
   9) Post Analysis:<br/>
     ISOPHASE: Isoform phasing using Iso-Seq data<br/>
     CUPCAKE & TAMA <br/>
-    SQANTI & TAPPAS: Quality control, evaulation and visualization<br/>
+    SQANTI: Quality control, evaulation and visualization<br/>
     COGENT: Reconstruct coding region<br/>
     
 
