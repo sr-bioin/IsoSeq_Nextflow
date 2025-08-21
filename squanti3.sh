@@ -19,9 +19,8 @@ export PATH=$PATH:/home/user/software/SQUANTI2/gffread
 export PATH=$PATH:/home/user/software/R/R-4.1.1/bin
 
 #Providing
-#sample1=
-#sample2=
-#sample3=
+#sample1=sample_A
+#sample2=sample_B
 
 #sample=sample$SLURM_ARRAY_TASK_ID
 #echo ${!sample}
@@ -37,4 +36,5 @@ export PATH=$PATH:/home/user/software/R/R-4.1.1/bin
 
 	echo end on `date`
 conda deactivate
+
 
