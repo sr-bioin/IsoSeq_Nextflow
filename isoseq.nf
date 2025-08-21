@@ -5,6 +5,8 @@ nextflow.enable.dsl=2
 params.input_bam = "/Iso-Seq/IsoSeq_Raw_data/m64069_004639.subreads.bam"
 params.primers   = "/Iso-Seq/IsoSeq_Raw_data/Isoseq_Barcode_primers.fasta"
 params.outdir    = "results"
+params.reference = "./Reference/reference_genomic.mmi"
+
 
 // Define valid barcode IDs
 def valid_ids = [
@@ -71,27 +73,25 @@ process refine {
     """
 }
 
-// Step 4: Cluster with --use-qvs and check for HQ output
+// Step 4: Cluster per sample
 process cluster {
     tag "$flnc_bam"
     publishDir "${params.outdir}/cluster", mode: 'copy'
 
-    cpus 30
-    memory '32 GB'
-
-    input:
+    memory '120 GB'
+	time '144h'   // request 48 hours walltime
+    
+	input:
     tuple val(sample_id), path(flnc_bam)
 
     output:
-    tuple val(sample_id), path("*.hq.bam")
+    tuple val(sample_id), path("${sample_id}_clustered.*")
 
     script:
     """
-    basename=\$(basename "$flnc_bam" .bam)
-    output_prefix="\${basename}_clustered"
+    output_prefix="${sample_id}_clustered"
     isoseq3 cluster "$flnc_bam" "\${output_prefix}.bam" --use-qvs
 
-    # Sanity check
     if [[ ! -f "\${output_prefix}.hq.bam" ]]; then
         echo "ERROR: HQ BAM not generated for $flnc_bam" >&2
         exit 1
@@ -126,6 +126,61 @@ process summarize {
     """
 }
 
+// Step 6: Bam → Fastq
+process bamtofastq {
+    tag "$sample_id"
+    publishDir "${params.outdir}/fastq", mode: 'copy'
+
+    input:
+    tuple val(sample_id), path(hq_bam)
+
+    output:
+    tuple val(sample_id), path("${sample_id}.hq.fastq")
+
+    script:
+    """
+    out_fastq="${sample_id}.hq.fastq"
+    bedtools bamtofastq -i "$hq_bam" -fq "\$out_fastq"
+    """
+}
+
+// Step 7: Align
+process align {
+    tag "$sample_id"
+    publishDir "${params.outdir}/aligned", mode: 'copy'
+
+    input:
+    tuple val(sample_id), path(hq_bam)
+
+    output:
+    tuple val(sample_id), path("${sample_id}.hq.aligned.bam")
+
+    script:
+    """
+    out_bam="${sample_id}.hq.aligned.bam"
+    pbmm2 align ${file(params.reference)} "$hq_bam" "\$out_bam" --preset ISOSEQ --sort -j 8
+    """
+}
+
+// Step 8: Collapse
+process collapse {
+    tag "$sample_id"
+    publishDir "${params.outdir}/collapse", mode: 'copy'
+
+    input:
+    tuple val(sample_id), path(aligned_bam)
+
+    output:
+    tuple val(sample_id), path("${sample_id}.gff")
+
+    script:
+    """
+    out_gff="${sample_id}.gff"
+    isoseq3 collapse "$aligned_bam" "\$out_gff"
+    """
+}
+
+
 // Workflow
 workflow {
     ccs_out = ccs(subreads_ch)
@@ -144,8 +199,17 @@ workflow {
 
     clustered = cluster(refined)
 
-    hq_bams = clustered.filter { sample_id, file -> file.name.endsWith(".hq.bam") }
+    // Extract HQ BAMs
+    hq_bams = clustered.map { sample_id, files ->
+        def hq_bam = files.find { it.name.endsWith(".hq.bam") }
+        if (hq_bam == null) {
+            exit 1, "ERROR: No .hq.bam file found for ${sample_id}"
+        }
+        tuple(sample_id, hq_bam)
+    }
 
     summarize(hq_bams)
+    fastqs       = bamtofastq(hq_bams)
+    aligned_bams = align(hq_bams)
+    collapse(aligned_bams)
 }
-
