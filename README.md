@@ -17,9 +17,9 @@ The aim of this project is to create an Nextflow pipeline for annotation of Isos
   7) Clean gene models (Isoseq3/tama collapse)<br/>
   8) Merge annotations by sample (tama merge)<br/>
   9) Post Analysis:<br/>
+    SQANTI: Quality control, evaulation and visualization<br/>
     ISOPHASE: Isoform phasing using Iso-Seq data<br/>
     CUPCAKE & TAMA <br/>
-    SQANTI: Quality control, evaulation and visualization<br/>
     COGENT: Reconstruct coding region<br/>
     
 
